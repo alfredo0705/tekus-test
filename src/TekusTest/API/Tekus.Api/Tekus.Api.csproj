@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Tekus.ExternalServices\Tekus.ExternalServices.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Tekus.Identity\Tekus.Identity.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Tekus.Persistence\Tekus.Persistence.csproj" />
   </ItemGroup>

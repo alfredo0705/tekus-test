@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Tekus.Application\Tekus.Application.csproj" />
     <ProjectReference Include="..\..\Core\Tekus.Domain\Tekus.Domain.csproj" />
   </ItemGroup>
 

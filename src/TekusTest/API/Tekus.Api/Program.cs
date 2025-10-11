@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Tekus.Api.Middleware;
+using Tekus.ExternalServices;
 using Tekus.Identity;
 using Tekus.Identity.Entities;
 using Tekus.Identity.Extensions;
@@ -12,6 +13,7 @@ builder.Services.AddHttpClient();
 // Add services to the container.
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.ConfigureIdentityServices(builder.Configuration);
+builder.Services.AddExternalServices();
 
 
 builder.Services.AddControllers();
