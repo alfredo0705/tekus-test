@@ -23,4 +23,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Tekus.Application\Tekus.Application.csproj" />
+  </ItemGroup>
+
 </Project>

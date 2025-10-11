@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Tekus.Application.Contracts.Identity;
 using Tekus.Identity.Entities;
+using Tekus.Identity.Services;
 
 namespace Tekus.Identity.Extensions
 {
@@ -60,6 +62,10 @@ namespace Tekus.Identity.Extensions
                 {
                     opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
                 });
+
+                // Inyección de dependencias personalizadas
+                services.AddScoped<IAuthService, AuthService>();
+                services.AddScoped<ITokenService, TokenService>();
 
                 return services;
             }

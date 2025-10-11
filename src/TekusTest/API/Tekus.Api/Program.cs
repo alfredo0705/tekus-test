@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Identity;
+using Tekus.Api.Middleware;
 using Tekus.Identity;
 using Tekus.Identity.Entities;
 using Tekus.Identity.Extensions;
 using Tekus.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient();
 
 // Add services to the container.
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
@@ -16,9 +19,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", p =>
+    {
+        p.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -27,9 +41,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseDefaultFiles();
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 //Ejecuta SeedData después de la construcción de la aplicación
 using (var scope = app.Services.CreateScope())
