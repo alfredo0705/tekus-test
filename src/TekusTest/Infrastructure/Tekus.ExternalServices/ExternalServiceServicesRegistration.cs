@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tekus.Application.Contracts.ExternalServices;
 using Tekus.ExternalServices.Country;
 
@@ -18,6 +13,8 @@ namespace Tekus.ExternalServices
                 client.BaseAddress = new Uri("https://restcountries.com/v3.1/");
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
+
+            services.AddHttpClient<ICountryService, CountryService>();
 
             return services;
         }

@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tekus.Application.Contracts.Persistence;
-using Tekus.Application.DTOs.Providers;
 using Tekus.Application.DTOs.Services;
 using Tekus.Application.Features.Services.Requests.Queries;
 

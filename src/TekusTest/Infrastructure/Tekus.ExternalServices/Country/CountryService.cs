@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using Tekus.Application.Contracts.ExternalServices;
 using Tekus.Application.DTOs.Country;
 
@@ -21,16 +15,18 @@ namespace Tekus.ExternalServices.Country
 
         public async Task<IEnumerable<CountryDto>> GetAllCountriesAsync()
         {
-            var response = await _httpClient.GetAsync("all");
+            var response = await _httpClient.GetAsync("https://restcountries.com/v3.1/all?fields=name,code");
             response.EnsureSuccessStatusCode();
 
-            var json = await response.Content.ReadAsStringAsync();
-            var data = JsonSerializer.Deserialize<List<CountryDto>>(json, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
 
-            return data ?? new List<CountryDto>();
+            var json = await response.Content.ReadAsStringAsync();
+            var data = JsonSerializer.Deserialize<List<RestCountryResponse>>(json);
+
+            return data?.Select(c => new CountryDto
+            {
+                Name = c.name.common,
+                Code = c.name.official,
+            }) ?? new List<CountryDto>();
         }
     }
 }

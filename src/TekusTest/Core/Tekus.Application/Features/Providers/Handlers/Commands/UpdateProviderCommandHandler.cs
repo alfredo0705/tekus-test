@@ -1,12 +1,6 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tekus.Application.Contracts.Persistence;
 using Tekus.Application.DTOs.Providers.Validators;
-using Tekus.Application.DTOs.Services.Validators;
 using Tekus.Application.Features.Providers.Requests.Commands;
 using Tekus.Application.Responses;
 

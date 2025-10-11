@@ -1,15 +1,10 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tekus.Application.DTOs.Services.Validators
 {
     public class ServiceCreateDtoValidator : AbstractValidator<ServiceCreateDto>
     {
-        public ServiceCreateDtoValidator() 
+        public ServiceCreateDtoValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty()

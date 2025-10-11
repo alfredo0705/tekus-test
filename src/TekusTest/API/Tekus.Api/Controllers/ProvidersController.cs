@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tekus.Application.DTOs.Providers;
 using Tekus.Application.Features.Providers.Requests.Commands;

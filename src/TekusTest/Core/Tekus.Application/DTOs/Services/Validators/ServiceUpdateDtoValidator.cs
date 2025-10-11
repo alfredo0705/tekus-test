@@ -1,17 +1,12 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tekus.Application.DTOs.Services.Validators
 {
     public class ServiceUpdateDtoValidator : AbstractValidator<ServiceUpdateDto>
     {
-        public ServiceUpdateDtoValidator() 
+        public ServiceUpdateDtoValidator()
         {
-            RuleFor(x =>  x.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty()
                     .WithMessage("{PropertyName} is required.");
 

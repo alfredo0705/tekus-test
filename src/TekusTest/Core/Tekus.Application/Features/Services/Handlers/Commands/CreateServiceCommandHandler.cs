@@ -1,9 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tekus.Application.Contracts.Persistence;
 using Tekus.Application.DTOs.Services.Validators;
 using Tekus.Application.Features.Services.Requests.Commands;
@@ -23,7 +18,7 @@ namespace Tekus.Application.Features.Services.Handlers.Commands
 
         public async Task<BaseCommandResponse> Handle(CreateServiceCommand request, CancellationToken cancellationToken)
         {
-            var response =  new BaseCommandResponse();
+            var response = new BaseCommandResponse();
 
             try
             {
@@ -37,7 +32,7 @@ namespace Tekus.Application.Features.Services.Handlers.Commands
                 }
 
                 var service = new Service(
-                    name: request.Service.Name, 
+                    name: request.Service.Name,
                     hourlyRate: request.Service.HourlyRate,
                     providerId: request.Service.ProviderId);
 
