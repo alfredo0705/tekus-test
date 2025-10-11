@@ -19,10 +19,10 @@ namespace Tekus.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // Llamar las configuraciones de cada entidad
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TekusDbContext).Assembly);
-
-            base.OnModelCreating(modelBuilder);
 
             // Aplicar la conversión de fecha y hora UTC
             modelBuilder.ApplyUtcDateTimeConverter();

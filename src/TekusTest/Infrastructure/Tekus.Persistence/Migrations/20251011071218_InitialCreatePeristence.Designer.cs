@@ -12,8 +12,8 @@ using Tekus.Persistence;
 namespace Tekus.Persistence.Migrations
 {
     [DbContext(typeof(TekusDbContext))]
-    [Migration("20251011033840_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20251011071218_InitialCreatePeristence")]
+    partial class InitialCreatePeristence
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
