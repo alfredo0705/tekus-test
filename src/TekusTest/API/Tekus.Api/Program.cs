@@ -1,4 +1,8 @@
+using Tekus.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.ConfigurePersistenceServices(builder.Configuration);
 
 // Add services to the container.
 

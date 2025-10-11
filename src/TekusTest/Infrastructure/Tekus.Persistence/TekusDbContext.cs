@@ -1,0 +1,74 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Tekus.Domain.Entities;
+
+namespace Tekus.Persistence
+{
+    public class TekusDbContext : AuditableDbContext
+    {
+        public TekusDbContext(DbContextOptions<TekusDbContext> options) : base(options)
+        {
+        }
+
+        public DbSet<Provider> Providers => Set<Provider>();
+        public DbSet<Service> Services => Set<Service>();
+        public DbSet<Country> Countries => Set<Country>();
+        public DbSet<ServiceCountry> ServiceCountries => Set<ServiceCountry>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Llamar las configuraciones de cada entidad
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TekusDbContext).Assembly);
+
+            base.OnModelCreating(modelBuilder);
+
+            // Aplicar la conversión de fecha y hora UTC
+            modelBuilder.ApplyUtcDateTimeConverter();
+        }
+    }
+
+    public static class UtcDateAnnotation
+    {
+        private const String IsUtcAnnotation = "IsUtc";
+        private static readonly ValueConverter<DateTime, DateTime> UtcConverter =
+          new ValueConverter<DateTime, DateTime>(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+
+        private static readonly ValueConverter<DateTime?, DateTime?> UtcNullableConverter =
+          new ValueConverter<DateTime?, DateTime?>(v => v, v => v == null ? v : DateTime.SpecifyKind(v.Value, DateTimeKind.Utc));
+
+        public static PropertyBuilder<TProperty> IsUtc<TProperty>(this PropertyBuilder<TProperty> builder, Boolean isUtc = true) =>
+          builder.HasAnnotation(IsUtcAnnotation, isUtc);
+
+        public static Boolean IsUtc(this IMutableProperty property) =>
+          ((Boolean?)property.FindAnnotation(IsUtcAnnotation)?.Value) ?? true;
+
+        /// <summary>
+        /// Se debe llamar luego de configurar todas las entidades.
+        /// </summary>
+        public static void ApplyUtcDateTimeConverter(this ModelBuilder builder)
+        {
+            foreach (var entityType in builder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (!property.IsUtc())
+                    {
+                        continue;
+                    }
+
+                    if (property.ClrType == typeof(DateTime))
+                    {
+                        property.SetValueConverter(UtcConverter);
+                    }
+
+                    if (property.ClrType == typeof(DateTime?))
+                    {
+                        property.SetValueConverter(UtcNullableConverter);
+                    }
+                }
+            }
+        }
+    }
+}
