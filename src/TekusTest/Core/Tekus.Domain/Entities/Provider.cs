@@ -17,6 +17,8 @@
             Email = email;
         }
 
-        public void UpdateEmail(string email) => Email = email;
+        public void UpdateEmail(string newEmail) => Email = newEmail;
+        public void UpdateName(string newName) => Name = newName;
+        public void UpdateNit(string newNit) => NIT = newNit;
     }
 }

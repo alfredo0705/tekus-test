@@ -18,6 +18,7 @@
             HourlyRate = hourlyRate;
         }
 
+        public void UpdateName(string newName) => Name = newName;
         public void UpdateRate(decimal newRate) => HourlyRate = newRate;
     }
 }
