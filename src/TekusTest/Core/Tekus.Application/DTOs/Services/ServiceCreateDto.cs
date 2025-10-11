@@ -10,5 +10,6 @@ namespace Tekus.Application.DTOs.Services
     {
         public string Name { get; set; }
         public decimal HourlyRate { get; set; }
+        public int ProviderId { get; set; }
     }
 }

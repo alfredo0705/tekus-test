@@ -20,9 +20,9 @@ namespace Tekus.Persistence
                     }));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

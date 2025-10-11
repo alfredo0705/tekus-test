@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Tekus.Api.Middleware;
 using Tekus.Application;
+using Tekus.Application.Profiles;
 using Tekus.ExternalServices;
 using Tekus.Identity;
 using Tekus.Identity.Entities;
@@ -15,7 +16,6 @@ builder.Services.AddHttpClient();
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.ConfigureIdentityServices(builder.Configuration);
 builder.Services.ConfigureApplicationServices();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //builder.Services.AddExternalServices();
 
 

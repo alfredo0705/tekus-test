@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Tekus.Application.Profiles;
 
 namespace Tekus.Application
 {
@@ -9,7 +10,10 @@ namespace Tekus.Application
         public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services)
         {
             // AutoMapper
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile<MappingProfile>();
+            }, AppDomain.CurrentDomain.GetAssemblies());
 
             // MediatR
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));

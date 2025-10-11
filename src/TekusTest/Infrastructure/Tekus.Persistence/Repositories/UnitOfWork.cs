@@ -12,7 +12,7 @@ namespace Tekus.Persistence.Repositories
 
         public IProviderRepository ProviderRepository => new ProviderRepository(_context);
 
-        public IServiceRepository ServiceRepository => throw new NotImplementedException();
+        public IServiceRepository ServiceRepository => new ServiceRepository(_context);
 
         public UnitOfWork(TekusDbContext context, IHttpContextAccessor httpContextAccessor)
         {

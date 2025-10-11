@@ -12,10 +12,11 @@
 
         protected Service() { }
 
-        public Service(string name, decimal hourlyRate)
+        public Service(string name, decimal hourlyRate, int providerId)
         {
             Name = name;
             HourlyRate = hourlyRate;
+            ProviderId = providerId;
         }
 
         public void UpdateName(string newName) => Name = newName;

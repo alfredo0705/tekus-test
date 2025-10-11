@@ -36,7 +36,10 @@ namespace Tekus.Application.Features.Services.Handlers.Commands
                     response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
                 }
 
-                var service = new Service(name: request.Service.Name, hourlyRate: request.Service.HourlyRate);
+                var service = new Service(
+                    name: request.Service.Name, 
+                    hourlyRate: request.Service.HourlyRate,
+                    providerId: request.Service.ProviderId);
 
                 await _unitOfWork.ServiceRepository.AddAsync(service);
                 await _unitOfWork.SaveAsync();
