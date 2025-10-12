@@ -4,6 +4,7 @@
     {
         IProviderRepository ProviderRepository { get; }
         IServiceRepository ServiceRepository { get; }
+        IDashboardRepository DashboardRepository { get; }
 
         Task SaveAsync();
         bool HasChanges();

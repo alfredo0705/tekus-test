@@ -29,6 +29,8 @@ namespace Tekus.Application.Features.Providers.Handlers.Commands
                     response.Success = false;
                     response.Message = "Creation failed";
                     response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+
+                    return response;
                 }
 
                 var provider = new Provider(nit: request.Provider.NIT, name: request.Provider.Name, email: request.Provider.Email);

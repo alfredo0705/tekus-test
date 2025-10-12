@@ -14,6 +14,8 @@ namespace Tekus.Persistence.Repositories
 
         public IServiceRepository ServiceRepository => new ServiceRepository(_context);
 
+        public IDashboardRepository DashboardRepository => new DashboardRepository(_context);
+
         public UnitOfWork(TekusDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;

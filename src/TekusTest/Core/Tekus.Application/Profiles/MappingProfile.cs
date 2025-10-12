@@ -11,6 +11,7 @@ namespace Tekus.Application.Profiles
         {
             CreateMap<Provider, ProviderDto>().ReverseMap();
             CreateMap<Service, ServiceDto>().ReverseMap();
+            CreateMap<ProviderCustomField, CustomFieldDto>().ReverseMap();
         }
     }
 }

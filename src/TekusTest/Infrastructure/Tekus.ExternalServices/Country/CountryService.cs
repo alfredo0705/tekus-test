@@ -25,7 +25,7 @@ namespace Tekus.ExternalServices.Country
             return data?.Select(c => new CountryDto
             {
                 Name = c.name.common,
-                Code = c.name.official,
+                Description = c.name.official,
             }) ?? new List<CountryDto>();
         }
     }

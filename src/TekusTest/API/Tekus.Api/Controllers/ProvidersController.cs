@@ -111,5 +111,21 @@ namespace Tekus.Api.Controllers
                 });
             }
         }
+
+        [HttpPost("{id}/custom-fields")]
+        public async Task<IActionResult> AddCustomFields(int id, [FromBody] List<CustomFieldDto> fields)
+        {
+            var command = new ProviderCustomFieldsCreateCommand
+            {
+                ProviderCustomField = new ProviderCustomFieldsCreateDto
+                {
+                    ProviderId = id,
+                    Fields = fields
+                }
+            };
+
+            var result = await _mediator.Send(command);
+            return result.Success ? Ok("Custom fields added successfully.") : BadRequest("Failed to add custom fields.");
+        }
     }
 }

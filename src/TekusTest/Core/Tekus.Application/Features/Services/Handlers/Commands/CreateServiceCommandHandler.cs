@@ -34,7 +34,8 @@ namespace Tekus.Application.Features.Services.Handlers.Commands
                 var service = new Service(
                     name: request.Service.Name,
                     hourlyRate: request.Service.HourlyRate,
-                    providerId: request.Service.ProviderId);
+                    providerId: request.Service.ProviderId,
+                    countries: request.Service.Countries);
 
                 await _unitOfWork.ServiceRepository.AddAsync(service);
                 await _unitOfWork.SaveAsync();
