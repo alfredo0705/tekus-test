@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using Tekus.Application.Contracts.Persistence;
+using Tekus.Application.Helpers;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Tekus.Persistence.Repositories
 {
@@ -28,9 +31,25 @@ namespace Tekus.Persistence.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<IReadOnlyList<T>> ListAllAsync()
-        {
-            return await _context.Set<T>().ToListAsync();
+        public async Task<PagedList<T>> ListAllAsync(
+            int pageIndex = 1,
+            int pageSize = 10, 
+            Expression<Func<T, bool>>? filter = null)
+        {   
+
+            var query = _context.Set<T>().AsQueryable();
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            var count = await query.CountAsync();
+
+            var items = await query
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PagedList<T>(items, count, pageIndex, pageSize);
         }
 
         public async Task UpdateAsync(T entity)

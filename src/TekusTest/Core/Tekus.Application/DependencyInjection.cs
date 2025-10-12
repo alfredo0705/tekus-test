@@ -13,6 +13,7 @@ namespace Tekus.Application
             services.AddAutoMapper(config =>
             {
                 config.AddProfile<MappingProfile>();
+                config.AddProfile<PagedListProfile>();
             }, AppDomain.CurrentDomain.GetAssemblies());
 
             // MediatR

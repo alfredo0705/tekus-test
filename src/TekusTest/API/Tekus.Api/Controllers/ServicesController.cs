@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Tekus.Api.Extensions;
 using Tekus.Application.DTOs.Services;
 using Tekus.Application.Features.Services.Requests.Commands;
 using Tekus.Application.Features.Services.Requests.Queries;
+using Tekus.Application.Helpers;
 
 namespace Tekus.Api.Controllers
 {
@@ -18,9 +20,12 @@ namespace Tekus.Api.Controllers
         }
 
         [HttpGet("getServices")]
-        public async Task<ActionResult<List<ServiceDto>>> GetServices()
+        public async Task<ActionResult<List<ServiceDto>>> GetServices([FromQuery] PaginationParams serviceParams)
         {
-            return Ok(await _mediator.Send(new GetAllServicesQuery()));
+            var services = await _mediator.Send(new GetAllServicesQuery { Params = serviceParams });
+            Response.AddPaginationHeader(services.CurrentPage, services.PageSize, services.TotalCount, services.TotalPages);
+
+            return Ok(services);
         }
 
         [HttpGet("getService")]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tekus.Application.Contracts.Persistence;
+using Tekus.Application.Helpers;
 using Tekus.Domain.Entities;
 
 namespace Tekus.Persistence.Repositories
@@ -21,12 +22,17 @@ namespace Tekus.Persistence.Repositories
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Provider>> GetAllWithDetailsAsync()
+        public async Task<PagedList<Provider>> GetAllWithDetailsAsync(PaginationParams paginationParams)
         {
-            return await _context.Providers
-                .Include(p => p.CustomFields)
-                .Include(p => p.Services)
-                .ToListAsync();
+            return await PagedList<Provider>.CreateAsync(
+                _context.Providers
+                    .Include(p => p.CustomFields)
+                    .Include(p => p.Services)
+                    .Where(x => string.IsNullOrWhiteSpace(paginationParams.SearchCriteria)
+                        || x.Name.Contains(paginationParams.SearchCriteria)),
+                paginationParams.PageNumber,
+                paginationParams.PageSize
+            );
         }
     }
 }
