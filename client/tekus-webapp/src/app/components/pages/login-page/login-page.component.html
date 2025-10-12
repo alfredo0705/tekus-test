@@ -1,0 +1,46 @@
+<div class="login-container mat-elevation-z4">
+  <h2 class="login-title">Bienvenido</h2>
+  <p class="login-subtitle">Inicia sesión para continuar</p>
+
+  <form [formGroup]="loginForm" (ngSubmit)="loginByEmail()">
+    <!-- Correo -->
+    <mat-form-field appearance="outline" class="custom-input">
+      <mat-label>Usuario</mat-label>
+      <input matInput formControlName="username" placeholder="Tu usuario" />
+      <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+        El usuario es obligatorio
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('username')?.hasError('email')">
+        Ingrese un usuario válido
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Contraseña -->
+    <mat-form-field appearance="outline" class="custom-input">
+      <mat-label>Contraseña</mat-label>
+      <input
+        matInput
+        [type]="hidePassword ? 'password' : 'text'"
+        formControlName="password"
+        placeholder="Tu contraseña"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Ocultar contraseña'"
+      >
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        La contraseña es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Botón -->
+    <button mat-raised-button color="primary" class="full-width" type="submit">
+      Iniciar sesión
+    </button>
+  </form>
+</div>
