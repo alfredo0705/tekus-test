@@ -5,32 +5,38 @@ import { ProviderEditComponent } from './components/pages/providers/provider-edi
 import { ServiceListComponent } from './components/pages/services/service-list/service-list.component';
 import { ServiceCreateComponent } from './components/pages/services/service-create/service-create.component';
 import { ServiceEditComponent } from './components/pages/services/service-edit/service-edit.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
+import { AuthLayoutComponent } from './components/layouts/auth-layout/auth-layout.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { providerResolver } from './_resolvers/provider.resolver';
+import { serviceResolver } from './_resolvers/service.resolver';
 
-export const routes: Routes = [
-    { 
-        path: 'providers', 
-        loadComponent: () => import('./components/pages/providers/provider-list/provider-list.component').then(h => ProviderListComponent)
-    },
-    { 
-        path: 'providers-create', 
-        loadComponent: () => import('./components/pages/providers/provider-create/provider-create.component').then(h => ProviderCreateComponent)
-    },
-    { 
-        path: 'providers-edit', 
-        loadComponent: () => import('./components/pages/providers/provider-edit/provider-edit.component').then(h => ProviderEditComponent)
-    },
-    { 
-        path: 'services', 
-        loadComponent: () => import('./components/pages/services/service-list/service-list.component').then(h => ServiceListComponent)
-    },
-    { 
-        path: 'services-create', 
-        loadComponent: () => import('./components/pages/services/service-create/service-create.component').then(h => ServiceCreateComponent)
-    },
-    { 
-        path: 'services-edit', 
-        loadComponent: () => import('./components/pages/services/service-edit/service-edit.component').then(h => ServiceEditComponent)
-    },
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', redirectTo: '' }
+export const routes: Routes = [{
+    path: '',
+    runGuardsAndResolvers: 'always',
+    component: MainLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'home', component: HomePageComponent },
+      { path: 'providers', component: ProviderListComponent },
+      { path: 'providers-create', component: ProviderCreateComponent},
+      { path: 'providers-edit/:id', component: ProviderEditComponent, resolve: { expenseType: providerResolver }},
+      { path: 'services', component: ServiceListComponent},
+      { path: 'services-create', component: ServiceCreateComponent},
+      { path: 'services-edit/:id', component: ServiceEditComponent, resolve: {monetaryFund: serviceResolver }}
+    ]
+  },
+{
+    path: 'auth',
+    component: AuthLayoutComponent,
+    children: [
+      { path: 'login', component: LoginPageComponent },
+    ]
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
+  }
 ];
