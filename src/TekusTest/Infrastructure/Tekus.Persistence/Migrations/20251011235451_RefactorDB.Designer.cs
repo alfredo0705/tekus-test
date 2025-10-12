@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tekus.Persistence;
 
@@ -11,9 +12,11 @@ using Tekus.Persistence;
 namespace Tekus.Persistence.Migrations
 {
     [DbContext(typeof(TekusDbContext))]
-    partial class TekusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251011235451_RefactorDB")]
+    partial class RefactorDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,41 @@ namespace Tekus.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Tekus.Domain.Entities.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries", (string)null);
+                });
 
             modelBuilder.Entity("Tekus.Domain.Entities.Provider", b =>
                 {
@@ -123,6 +161,36 @@ namespace Tekus.Persistence.Migrations
                     b.ToTable("Services", (string)null);
                 });
 
+            modelBuilder.Entity("Tekus.Domain.Entities.ServiceCountry", b =>
+                {
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ServiceId", "CountryId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("ServiceCountries", (string)null);
+                });
+
             modelBuilder.Entity("Tekus.Domain.Entities.ProviderCustomField", b =>
                 {
                     b.HasOne("Tekus.Domain.Entities.Provider", "Provider")
@@ -143,6 +211,30 @@ namespace Tekus.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Provider");
+                });
+
+            modelBuilder.Entity("Tekus.Domain.Entities.ServiceCountry", b =>
+                {
+                    b.HasOne("Tekus.Domain.Entities.Country", "Country")
+                        .WithMany("ServiceCountries")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tekus.Domain.Entities.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Tekus.Domain.Entities.Country", b =>
+                {
+                    b.Navigation("ServiceCountries");
                 });
 
             modelBuilder.Entity("Tekus.Domain.Entities.Provider", b =>

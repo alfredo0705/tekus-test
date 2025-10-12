@@ -8,7 +8,7 @@
         public int ProviderId { get; private set; }
         public Provider Provider { get; private set; }
 
-        public ICollection<ServiceCountry> ServiceCountries { get; private set; } = new List<ServiceCountry>();
+        public List<string> Countries { get; set; } = new();
 
         protected Service() { }
 

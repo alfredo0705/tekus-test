@@ -7,6 +7,7 @@
         public string Email { get; private set; }
 
         public ICollection<Service> Services { get; private set; } = new List<Service>();
+        public ICollection<ProviderCustomField> CustomFields { get; set; } = new List<ProviderCustomField>();
 
         protected Provider() { } // Requerido por EF Core
 

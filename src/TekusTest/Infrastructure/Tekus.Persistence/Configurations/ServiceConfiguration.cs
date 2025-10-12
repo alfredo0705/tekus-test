@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Text.Json;
 using Tekus.Domain.Entities;
 
 namespace Tekus.Persistence.Configurations
@@ -23,9 +24,12 @@ namespace Tekus.Persistence.Configurations
                    .IsRequired()
                    .HasColumnType("decimal(18,2)");
 
-            builder.HasMany(c => c.ServiceCountries)
-               .WithOne(sc => sc.Service)
-               .HasForeignKey(sc => sc.CountryId);
+            // Convierte List<string> <-> string (JSON)
+            builder.Property(s => s.Countries)
+                   .HasConversion(
+                       v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                       v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null))
+                   .HasColumnType("nvarchar(max)");
         }
     }
 }

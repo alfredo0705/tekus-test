@@ -19,7 +19,7 @@ namespace Tekus.Application.Features.Providers.Handlers.Queries
 
         public async Task<ProviderDto> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.ProviderRepository.GetByIdAsync(request.Id);
+            var result = await _unitOfWork.ProviderRepository.GetByIdWithDetailsAsync(request.Id);
 
             return _mapper.Map<ProviderDto>(result);
         }

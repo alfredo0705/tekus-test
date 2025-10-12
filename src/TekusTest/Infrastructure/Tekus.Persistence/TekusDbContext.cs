@@ -14,8 +14,6 @@ namespace Tekus.Persistence
 
         public DbSet<Provider> Providers => Set<Provider>();
         public DbSet<Service> Services => Set<Service>();
-        public DbSet<Country> Countries => Set<Country>();
-        public DbSet<ServiceCountry> ServiceCountries => Set<ServiceCountry>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

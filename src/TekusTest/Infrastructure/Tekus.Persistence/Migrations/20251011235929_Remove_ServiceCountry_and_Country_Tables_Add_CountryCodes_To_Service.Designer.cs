@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tekus.Persistence;
 
@@ -11,9 +12,11 @@ using Tekus.Persistence;
 namespace Tekus.Persistence.Migrations
 {
     [DbContext(typeof(TekusDbContext))]
-    partial class TekusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251011235929_Remove_ServiceCountry_and_Country_Tables_Add_CountryCodes_To_Service")]
+    partial class Remove_ServiceCountry_and_Country_Tables_Add_CountryCodes_To_Service
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
