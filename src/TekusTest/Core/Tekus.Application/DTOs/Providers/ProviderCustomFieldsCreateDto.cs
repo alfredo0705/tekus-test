@@ -3,6 +3,6 @@
     public class ProviderCustomFieldsCreateDto
     {
         public int ProviderId { get; set; }
-        public List<CustomFieldDto> Fields { get; set; } = new();
+        public CustomFieldDto Field { get; set; } = new();
     }
 }

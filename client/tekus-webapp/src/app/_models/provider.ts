@@ -3,7 +3,7 @@ export interface Provider{
     nit: string;
     name: string;
     email: string;
-    customFields: CustomFields
+    customFields: CustomFields[]
 }
 
 export interface CustomFields{

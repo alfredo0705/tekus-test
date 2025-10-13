@@ -13,6 +13,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCustomFieldDialogComponent } from '../add-custom-field-dialog/add-custom-field-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-provider-list',
@@ -38,13 +41,16 @@ export class ProviderListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nit', 'name', 'email', 'customFields', 'actions'];
   dataSource = new MatTableDataSource<Provider>([]);
   filterValue = '';
+  customFields: { fieldName: string; fieldValue: string }[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private providerService: ProviderService,
-    private router: Router){
+    private router: Router,
+    private dialog: MatDialog,
+  private toastr: ToastrService){
     this.params = this.providerService.getParams();
   }
 
@@ -93,6 +99,24 @@ export class ProviderListComponent implements OnInit {
 
   navigateToEditProvider(id: string) {
     this.router.navigate(['/providers/edit', id]);
+  }
+
+  openAddCustomFieldDialog(id: string) {
+  const dialogRef = this.dialog.open(AddCustomFieldDialogComponent, {
+    width: '400px',
+      data: { providerId: id },
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.providerService.addCustomFields(result.customField, result.providerId).subscribe({
+          next: () =>{
+            this.providers.find(x => x.id.toString() === id).customFields.push(result);
+            this.toastr.success('Campo personalizado agregado!');
+          }
+        })
+      }
+    });
   }
 
 }

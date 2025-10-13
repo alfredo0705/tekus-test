@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Agregar campo personalizado</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="flex flex-col gap-4 p-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre del campo</mat-label>
+      <input matInput formControlName="fieldName" placeholder="ejemplo numero de contacto en Marte" />
+      <mat-error *ngIf="form.get('fieldName')?.hasError('required')">
+        El campo es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Valor del campo</mat-label>
+      <input matInput formControlName="fieldValue" placeholder="ejemplo +321 123 456" />
+      <mat-error *ngIf="form.get('fieldValue')?.hasError('required')">
+        El campo es obligatorio
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">
+    Guradar
+  </button>
+</mat-dialog-actions>

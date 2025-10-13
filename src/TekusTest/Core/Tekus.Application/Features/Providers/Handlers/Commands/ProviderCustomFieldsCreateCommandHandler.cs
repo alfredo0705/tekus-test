@@ -30,30 +30,26 @@ namespace Tekus.Application.Features.Providers.Handlers.Commands
                 var provider = await _unitOfWork.ProviderRepository.GetByIdAsync(request.ProviderCustomField.ProviderId);
                 if (provider == null)
                     throw new KeyNotFoundException("Provider not found");
-
-
-                foreach (var field in request.ProviderCustomField.Fields)
+                
+                var validator = new CustomFieldDtoValidator();
+                var validationResult = await validator.ValidateAsync(request.ProviderCustomField.Field);
+                if (!validationResult.IsValid)
                 {
-                    var validator = new CustomFieldDtoValidator();
-                    var validationResult = await validator.ValidateAsync(field);
-                    if (!validationResult.IsValid)
-                    {
-                        response.Success = false;
-                        response.Message = "Creation failed";
-                        response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                    response.Success = false;
+                    response.Message = "Creation failed";
+                    response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
 
-                        return response;
-                    }
-
-                    var customField = new ProviderCustomField
-                    {
-                        ProviderId = provider.Id,
-                        FieldName = field.FieldName,
-                        FieldValue = field.FieldValue
-                    };
-
-                    provider.CustomFields.Add(customField);
+                    return response;
                 }
+
+                var customField = new ProviderCustomField
+                {
+                    ProviderId = provider.Id,
+                    FieldName = request.ProviderCustomField.Field.FieldName,
+                    FieldValue = request.ProviderCustomField.Field.FieldValue
+                };
+
+                provider.CustomFields.Add(customField);
 
                 await _unitOfWork.SaveAsync();
 

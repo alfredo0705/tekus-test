@@ -125,14 +125,14 @@ namespace Tekus.Api.Controllers
         }
 
         [HttpPost("{id}/custom-fields")]
-        public async Task<IActionResult> AddCustomFields(int id, [FromBody] List<CustomFieldDto> fields)
+        public async Task<IActionResult> AddCustomFields(int id, [FromBody] CustomFieldDto fields)
         {
             var command = new ProviderCustomFieldsCreateCommand
             {
                 ProviderCustomField = new ProviderCustomFieldsCreateDto
                 {
                     ProviderId = id,
-                    Fields = fields
+                    Field = fields
                 }
             };
 

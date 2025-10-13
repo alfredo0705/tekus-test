@@ -5,6 +5,7 @@ import { Params } from '../_models/params';
 import { getPaginatedResult, getPaginationHeaders } from './pagination-helper';
 import { Provider } from '../_models/provider';
 import { map } from 'rxjs';
+import { ProviderCustomFields } from '../_models/custom-field';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,9 @@ export class ProviderService {
 
   addProvider(model: Provider){
     return this.http.post(this.baseUrl + 'providers/addProvider', model);
+  }
+
+  addCustomFields(model: ProviderCustomFields, id: string){
+    return this.http.post(this.baseUrl + 'providers/' + id + '/custom-fields', model);
   }
 }
