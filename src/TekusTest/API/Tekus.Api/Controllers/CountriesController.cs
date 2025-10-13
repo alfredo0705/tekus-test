@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tekus.Application.Contracts.ExternalServices;
 
 namespace Tekus.Api.Controllers
 {
+    [Authorize(Policy = "RequireAdminRole")]
     public class CountriesController : BaseApiController
     {
         private readonly ICountryService _countryService;

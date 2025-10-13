@@ -33,6 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
             break;
             case 401:
+              console.log('Unauthorized, redirecting...');
               this.router.navigateByUrl('/auth/login');
               break;
           case 403:

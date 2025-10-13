@@ -14,8 +14,4 @@ export class AppComponent {
 
   constructor(public router: Router){
   }
-  
-  isLoginPage(): boolean {
-    return this.router.url === '/auth/login';
-  }
 }

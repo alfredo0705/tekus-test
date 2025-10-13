@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tekus.Api.Extensions;
 using Tekus.Application.DTOs.Providers;
@@ -9,7 +10,7 @@ using Tekus.Application.Helpers;
 
 namespace Tekus.Api.Controllers
 {
-    //[Authorize(Policy = "RequireAdminRole")]
+    [Authorize(Policy = "RequireAdminRole")]
     public class ProvidersController : BaseApiController
     {
         private readonly IMediator _mediator;

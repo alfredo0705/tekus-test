@@ -45,7 +45,7 @@ namespace Tekus.Identity.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddDays(20),
                 SigningCredentials = creds,
                 Issuer = _jwtSettings.Issuer,
                 Audience = _jwtSettings.Audience

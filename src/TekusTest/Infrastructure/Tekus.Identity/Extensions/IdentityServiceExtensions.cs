@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Tekus.Application.Contracts.Identity;
+using Tekus.Application.Models.Identity;
 using Tekus.Identity.Entities;
 using Tekus.Identity.Services;
 
@@ -17,6 +18,9 @@ namespace Tekus.Identity.Extensions
         {
             try
             {
+                // Configuración de JWT desde appsettings.json
+                services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+
                 // Configuración de DbContext para Identity
                 services.AddDbContext<TekusIdentityDbContext>(options =>
                     options.UseSqlServer(

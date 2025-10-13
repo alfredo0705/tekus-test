@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tekus.Application.DTOs.Dashboard;
 using Tekus.Application.Features.Dashboard.Requests.Queries;
 
 namespace Tekus.Api.Controllers
 {
+    [Authorize(Policy = "RequireAdminRole")]
     public class DashBoardController : BaseApiController
     {
         private readonly IMediator _mediator;
