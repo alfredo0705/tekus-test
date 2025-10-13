@@ -30,6 +30,12 @@ namespace Tekus.Api.Controllers
             return Ok(providers);
         }
 
+        [HttpGet("getProvidersList")]
+        public async Task<ActionResult<List<ProviderDto>>> GetProviderList()
+        {
+            return Ok(await _mediator.Send(new GetAllProvidersListQuery()));
+        }
+
         [HttpGet("getProvider")]
         public async Task<ActionResult<ProviderDto>> GetProvider(int id)
         {

@@ -1,0 +1,43 @@
+<mat-card class="provider-card">
+  <h2>Editar Servicio</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Nombre del servicio" />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        El nombre es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Valor del servicio</mat-label>
+      <input matInput formControlName="hourlyRate" placeholder="Valor del servicio" />
+      <mat-error *ngIf="form.get('hourlyRate')?.hasError('required')">
+        El valor del servicio es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Selección de Proveedor -->
+    <mat-form-field appearance="outline" class="w-full mb-4">
+      <mat-label>Proveedor</mat-label>
+      <mat-select formControlName="providerId" required>
+        <mat-option *ngFor="let provider of providers" [value]="provider.id">
+          {{ provider.name }} — {{ provider.nit }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('providerId')?.hasError('required')">
+        Selecciona un proveedor
+      </mat-error>
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-flat-button color="primary" type="submit">
+       Crear proveedor
+      </button>
+      <button mat-stroked-button color="warn" type="button" (click)="cancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>

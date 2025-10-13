@@ -20,10 +20,7 @@ namespace Tekus.Application.Features.Services.Handlers.Queries
 
         public async Task<PagedList<ServiceDto>> Handle(GetAllServicesQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.ServiceRepository.ListAllAsync(
-                pageIndex: request.Params.PageNumber, 
-                pageSize: request.Params.PageSize, 
-                filter: p => p.Name.Contains(request.Params.SearchCriteria));
+            var result = await _unitOfWork.ServiceRepository.GetAllWithProviderNameAsync(request.Params);
 
             return _mapper.Map<PagedList<ServiceDto>>(result);
         }

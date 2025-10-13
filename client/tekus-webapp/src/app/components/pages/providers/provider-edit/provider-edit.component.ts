@@ -39,7 +39,6 @@ export class ProviderEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data =>{
       this.provider = data['provider'];
-      console.log(this.provider);
     })
 
     this.initForm(this.provider);

@@ -10,7 +10,9 @@ namespace Tekus.Application.Profiles
         public MappingProfile()
         {
             CreateMap<Provider, ProviderDto>().ReverseMap();
-            CreateMap<Service, ServiceDto>().ReverseMap();
+            CreateMap<Service, ServiceDto>()
+                .ForMember(dest => dest.ProviderName, opt => opt.MapFrom(dest => dest.Provider.Name))
+                .ReverseMap();
             CreateMap<ProviderCustomField, CustomFieldDto>().ReverseMap();
         }
     }

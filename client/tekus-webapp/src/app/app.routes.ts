@@ -24,8 +24,8 @@ export const routes: Routes = [{
       { path: 'providers/create', component: ProviderCreateComponent},
       { path: 'providers/edit/:id', component: ProviderEditComponent, resolve: { provider: providerResolver }},
       { path: 'services', component: ServiceListComponent},
-      { path: 'services-create', component: ServiceCreateComponent},
-      { path: 'services-edit/:id', component: ServiceEditComponent, resolve: {service: serviceResolver }}
+      { path: 'services/create', component: ServiceCreateComponent},
+      { path: 'services/edit/:id', component: ServiceEditComponent, resolve: {service: serviceResolver }}
     ]
   },
 {

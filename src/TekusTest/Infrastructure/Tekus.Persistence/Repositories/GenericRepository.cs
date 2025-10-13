@@ -33,7 +33,7 @@ namespace Tekus.Persistence.Repositories
 
         public async Task<PagedList<T>> ListAllAsync(
             int pageIndex = 1,
-            int pageSize = 10, 
+            int pageSize = 10,
             Expression<Func<T, bool>>? filter = null)
         {   
 

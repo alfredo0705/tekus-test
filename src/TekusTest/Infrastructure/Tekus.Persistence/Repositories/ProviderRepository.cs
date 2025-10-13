@@ -14,6 +14,12 @@ namespace Tekus.Persistence.Repositories
             _context = context;
         }
 
+        public async Task<List<Provider>> GetAllProvidersList()
+        {
+            return await _context.Providers
+                .ToListAsync();
+        }
+
         public async Task<Provider?> GetByIdWithDetailsAsync(int id)
         {
             return await _context.Providers

@@ -28,6 +28,10 @@ export class ProviderService {
     return this.params;
   }
 
+  getProvidersList(){
+    return this.http.get<Provider[]>(this.baseUrl + 'providers/getProvidersList');
+  }
+
   getProviders(providerParams: Params){
     let params = getPaginationHeaders(providerParams.pageNumber, providerParams.pageSize);
     params = params.append('searchCriteria', providerParams.searchCriteria);

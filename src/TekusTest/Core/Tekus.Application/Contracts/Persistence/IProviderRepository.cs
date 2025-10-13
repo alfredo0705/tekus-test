@@ -7,5 +7,6 @@ namespace Tekus.Application.Contracts.Persistence
     {
         Task<Provider?> GetByIdWithDetailsAsync(int id);
         Task<PagedList<Provider>> GetAllWithDetailsAsync(PaginationParams paginationParams);
+        Task<List<Provider>> GetAllProvidersList();
     }
 }
