@@ -21,11 +21,11 @@ export const routes: Routes = [{
     children: [
       { path: 'home', component: HomePageComponent },
       { path: 'providers', component: ProviderListComponent },
-      { path: 'providers-create', component: ProviderCreateComponent},
-      { path: 'providers-edit/:id', component: ProviderEditComponent, resolve: { expenseType: providerResolver }},
+      { path: 'providers/create', component: ProviderCreateComponent},
+      { path: 'providers/edit/:id', component: ProviderEditComponent, resolve: { provider: providerResolver }},
       { path: 'services', component: ServiceListComponent},
       { path: 'services-create', component: ServiceCreateComponent},
-      { path: 'services-edit/:id', component: ServiceEditComponent, resolve: {monetaryFund: serviceResolver }}
+      { path: 'services-edit/:id', component: ServiceEditComponent, resolve: {service: serviceResolver }}
     ]
   },
 {

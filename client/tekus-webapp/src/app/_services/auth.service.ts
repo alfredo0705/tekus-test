@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { map, Observable, ReplaySubject } from 'rxjs';
 import { User } from '../_models/auth/user';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../environments/environment';
 
 @Injectable({

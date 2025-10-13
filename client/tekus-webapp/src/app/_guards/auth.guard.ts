@@ -1,6 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthService } from '../_services/auth.service';
 
