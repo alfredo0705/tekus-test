@@ -1,0 +1,46 @@
+mat-paginator {
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.container {
+  padding: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.custom-field {
+  display: inline-block;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 12px;
+  padding: 2px 8px;
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+.text-muted {
+  color: #888;
+}
+
+.toolbar-container {
+  margin-bottom: 16px;
+
+  .mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}

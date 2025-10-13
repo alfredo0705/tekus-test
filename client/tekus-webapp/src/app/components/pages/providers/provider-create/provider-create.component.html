@@ -1,0 +1,41 @@
+<mat-card class="provider-card">
+  <h2>Nuevo Proveedor</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Nombre del proveedor" />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        El nombre es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>NIT</mat-label>
+      <input matInput formControlName="nit" placeholder="NIT del proveedor" />
+      <mat-error *ngIf="form.get('nit')?.hasError('required')">
+        El NIT es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput formControlName="email" placeholder="correo@ejemplo.com" />
+      <mat-error *ngIf="form.get('email')?.hasError('required')">
+        El correo es obligatorio
+      </mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email')">
+        Formato de correo inválido
+      </mat-error>
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-flat-button color="primary" type="submit">
+       Crear proveedor
+      </button>
+      <button mat-stroked-button color="warn" type="button" (click)="cancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>
