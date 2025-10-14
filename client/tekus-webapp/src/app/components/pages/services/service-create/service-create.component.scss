@@ -1,0 +1,34 @@
+.provider-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+.w-100 {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.countries-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.countries-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.5rem;
+}
+
+.mat-label {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}

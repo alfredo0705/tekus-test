@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public decimal HourlyRate { get; set; }
         public string ProviderName { get; set; }
+        public List<string> Countries { get; set; }
     }
 }

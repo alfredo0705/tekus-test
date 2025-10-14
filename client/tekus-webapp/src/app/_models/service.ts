@@ -4,4 +4,5 @@ export interface Service{
     hourlyRate: number;
     providerName: string;
     providerId: number;
+    countries: string[];
 }

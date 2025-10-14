@@ -31,9 +31,23 @@
       </mat-error>
     </mat-form-field>
 
+    <div class="countries-section">
+      <label class="mat-label">Países donde se ofrece el servicio</label>
+
+      <div class="countries-grid">
+        <mat-checkbox *ngFor="let country of countries" (change)="onCheckboxChange($event, country.description)"
+          [checked]="form.value.countries?.includes(country.description)">
+          {{ country.name }}
+        </mat-checkbox>
+      </div>
+      <mat-error *ngIf="form.get('countries')?.hasError('required') && form.get('countries')?.touched">
+        Debes seleccionar al menos un país.
+      </mat-error>
+    </div>
+
     <div class="buttons">
       <button mat-flat-button color="primary" type="submit">
-       Crear proveedor
+        Crear proveedor
       </button>
       <button mat-stroked-button color="warn" type="button" (click)="cancel()">
         Cancelar

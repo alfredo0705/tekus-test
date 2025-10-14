@@ -15,7 +15,7 @@ namespace Tekus.ExternalServices.Country
 
         public async Task<IEnumerable<CountryDto>> GetAllCountriesAsync()
         {
-            var response = await _httpClient.GetAsync("https://restcountries.com/v3.1/all?fields=name,code");
+            var response = await _httpClient.GetAsync("https://restcountries.com/v3.1/lang/spanish");
             response.EnsureSuccessStatusCode();
 
 
@@ -25,7 +25,7 @@ namespace Tekus.ExternalServices.Country
             return data?.Select(c => new CountryDto
             {
                 Name = c.name.common,
-                Description = c.name.official,
+                Description = c.cca2,
             }) ?? new List<CountryDto>();
         }
     }

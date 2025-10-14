@@ -14,6 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProviderService } from '../../../../_services/provider.service';
 import { Router } from '@angular/router';
 import { ServiceService } from '../../../../_services/service.service';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-service-list',
@@ -27,7 +28,8 @@ import { ServiceService } from '../../../../_services/service.service';
       MatButtonModule,
       MatTooltipModule,
       MatInputModule,
-      MatToolbarModule
+      MatToolbarModule,
+      MatChipsModule
     ],
   templateUrl: './service-list.component.html',
   styleUrl: './service-list.component.scss'
@@ -36,7 +38,7 @@ export class ServiceListComponent implements OnInit {
   services: Service[];
   params: Params = new Params();
   pagination!: Pagination;
-  displayedColumns: string[] = ['id', 'name', 'providerName', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'providerName', 'countries', 'actions'];
   dataSource = new MatTableDataSource<Service>([]);
   filterValue = '';
 

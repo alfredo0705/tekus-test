@@ -3,6 +3,7 @@
     public class RestCountryResponse
     {
         public NameData name { get; set; }
+        public string cca2 { get; set; }
 
         public class NameData
         {
