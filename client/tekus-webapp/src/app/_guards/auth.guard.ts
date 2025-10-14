@@ -9,15 +9,11 @@ import { AuthService } from '../_services/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private autService: AuthService, private router: Router){}
   
-  logout(){
-    this.router.navigateByUrl('/');
-  }
-
   canActivate(): Observable<boolean> {
     return this.autService.currentUser$.pipe(
       map(user => {
         if (user) return true;
-        this.logout()
+        this.router.navigate(['/auth/login']);
         return false;
       })
     )

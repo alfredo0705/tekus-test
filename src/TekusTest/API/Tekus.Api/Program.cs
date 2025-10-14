@@ -13,6 +13,7 @@ public class Program
 
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddControllers();
         builder.Services.AddHttpClient();
 
         // Add services to the container.
@@ -22,7 +23,6 @@ public class Program
         builder.Services.AddExternalServices();
 
 
-        builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -47,9 +47,9 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
 
         app.UseRouting();
+        app.UseHttpsRedirection();
 
         app.UseCors("AllowAll");
 
@@ -57,11 +57,13 @@ public class Program
         app.UseAuthorization();
 
         app.UseDefaultFiles();
+        app.UseStaticFiles();
 
 
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapFallbackToFile("index.html");
         });
 
         //Ejecuta SeedData después de la construcción de la aplicación
