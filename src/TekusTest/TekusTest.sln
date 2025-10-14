@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekus.Persistence", "Infras
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekus.ExternalServices", "Infrastructure\Tekus.ExternalServices\Tekus.ExternalServices.csproj", "{7164F23F-88C3-431D-43DD-8F25AE8973B8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{66A2F87B-0597-4D34-BB54-7EA77BE3A979}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekus.Tests", "..\..\tests\Tekus.Tests\Tekus.Tests.csproj", "{2E86B74D-7387-4A3A-AC00-BE6D68D07E47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,10 @@ Global
 		{7164F23F-88C3-431D-43DD-8F25AE8973B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7164F23F-88C3-431D-43DD-8F25AE8973B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7164F23F-88C3-431D-43DD-8F25AE8973B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E86B74D-7387-4A3A-AC00-BE6D68D07E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E86B74D-7387-4A3A-AC00-BE6D68D07E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E86B74D-7387-4A3A-AC00-BE6D68D07E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E86B74D-7387-4A3A-AC00-BE6D68D07E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +75,7 @@ Global
 		{4150F92D-1812-4A32-889A-81C88E955C2B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{3BD46396-B9CF-45F4-B7A8-4B8101D43C8B} = {0E06AB1F-EC00-47D1-9707-1E66D8495901}
 		{7164F23F-88C3-431D-43DD-8F25AE8973B8} = {0E06AB1F-EC00-47D1-9707-1E66D8495901}
+		{2E86B74D-7387-4A3A-AC00-BE6D68D07E47} = {66A2F87B-0597-4D34-BB54-7EA77BE3A979}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8E847CB4-C0A9-4E53-999A-F928BAAD0337}

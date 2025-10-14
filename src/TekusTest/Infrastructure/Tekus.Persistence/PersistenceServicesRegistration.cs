@@ -10,14 +10,33 @@ namespace Tekus.Persistence
     {
         public static IServiceCollection ConfigurePersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<TekusDbContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DBConnectionString"),
+#if DEBUG
+            if (configuration["UseInMemoryDb"] == "true")
+            {
+                services.AddDbContext<TekusDbContext>(options =>
+                    options.UseInMemoryDatabase("TestDb"));
+            }
+            else
+            {
+#endif
+                services.AddDbContext<TekusDbContext>(options =>
+                    options.UseSqlServer(configuration.GetConnectionString("DBConnectionString"),
                     sqlOptions =>
                     {
-                        sqlOptions.MigrationsAssembly("Tekus.Persistence"); // Especifica el ensamblado de migraciones
+                        sqlOptions.MigrationsAssembly("Tekus.Persistence");
                         sqlOptions.EnableRetryOnFailure();
                     }));
+#if DEBUG
+            }
+#endif
+            //services.AddDbContext<TekusDbContext>(options =>
+            //    options.UseSqlServer(
+            //        configuration.GetConnectionString("DBConnectionString"),
+            //        sqlOptions =>
+            //        {
+            //            sqlOptions.MigrationsAssembly("Tekus.Persistence"); // Especifica el ensamblado de migraciones
+            //            sqlOptions.EnableRetryOnFailure();
+            //        }));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IServiceRepository, ServiceRepository>();

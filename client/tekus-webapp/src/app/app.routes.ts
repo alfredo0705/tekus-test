@@ -20,6 +20,7 @@ export const routes: Routes = [{
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomePageComponent },
       { path: 'providers', component: ProviderListComponent },
       { path: 'providers/create', component: ProviderCreateComponent},

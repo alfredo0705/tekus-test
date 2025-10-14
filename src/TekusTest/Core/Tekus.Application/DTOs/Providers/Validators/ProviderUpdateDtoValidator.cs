@@ -13,8 +13,8 @@ namespace Tekus.Application.DTOs.Providers.Validators
                 .NotEmpty()
                     .WithMessage("{PropertyName} is required.");
             RuleFor(x => x.Email)
-                .NotEmpty()
-                    .WithMessage("{PropertyName} is required.");
+                .NotEmpty().WithMessage("{PropertyName} is required.")
+                .EmailAddress().WithMessage("{PropertyName} is invalid.");
             RuleFor(x => x.Id)
                 .NotNull()
                     .WithMessage("{PropertyName} is required.");

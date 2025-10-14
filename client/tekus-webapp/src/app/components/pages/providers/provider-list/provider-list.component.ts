@@ -50,7 +50,7 @@ export class ProviderListComponent implements OnInit {
     private providerService: ProviderService,
     private router: Router,
     private dialog: MatDialog,
-  private toastr: ToastrService){
+    private toastr: ToastrService){
     this.params = this.providerService.getParams();
   }
 

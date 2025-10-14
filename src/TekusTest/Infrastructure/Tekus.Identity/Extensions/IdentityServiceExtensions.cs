@@ -21,15 +21,29 @@ namespace Tekus.Identity.Extensions
                 // Configuración de JWT desde appsettings.json
                 services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
-                // Configuración de DbContext para Identity
-                services.AddDbContext<TekusIdentityDbContext>(options =>
-                    options.UseSqlServer(
-                        configuration.GetConnectionString("DBConnectionString"),
-                        sqlOptions =>
-                        {
-                            sqlOptions.MigrationsAssembly("Tekus.Identity"); // Especifica el ensamblado de migraciones
-                            sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
-                        }));
+#if DEBUG
+                if (configuration["UseInMemoryDb"] == "true")
+                {
+                    services.AddDbContext<TekusIdentityDbContext>(options =>
+                        options.UseInMemoryDatabase("TestDb"));
+                }
+                else
+                {
+#endif
+                    // Configuración de DbContext para Identity
+                    services.AddDbContext<TekusIdentityDbContext>(options =>
+                        options.UseSqlServer(
+                            configuration.GetConnectionString("DBConnectionString"),
+                            sqlOptions =>
+                            {
+                                sqlOptions.MigrationsAssembly("Tekus.Identity"); // Especifica el ensamblado de migraciones
+                                sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                            }));
+#if DEBUG
+                }
+#endif
+
+                
 
                 // Configuración de Identity con soporte para roles
                 services.AddIdentityCore<AppUser>(opt =>
