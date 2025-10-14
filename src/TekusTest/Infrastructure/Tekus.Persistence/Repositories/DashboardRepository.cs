@@ -19,25 +19,20 @@ namespace Tekus.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<CountryCountDto>> GetProvidersByCountry()
+        public async Task<DashboardSummaryDto> GetSummary()
         {
-            var providersByCountry =  _context.Services
-                .AsEnumerable() // evaluación en memoria
-                .SelectMany(s => s.Countries.Select(code => new { s.ProviderId, Country = code }))
-                .Distinct()
-                .GroupBy(x => x.Country)
-                .Select(g => new CountryCountDto
-                {
-                    Country = g.Key,
-                    Count = g.Select(x => x.ProviderId).Distinct().Count()
-                })
-                .ToList();
+            var providersByCountry = _context.Services
+               .AsEnumerable()
+               .SelectMany(s => s.Countries.Select(code => new { s.ProviderId, Country = code }))
+               .Distinct()
+               .GroupBy(x => x.Country)
+               .Select(g => new CountryCountDto
+               {
+                   Country = g.Key,
+                   Count = g.Select(x => x.ProviderId).Distinct().Count()
+               })
+               .ToList();
 
-            return providersByCountry;
-        }
-
-        public async Task<List<CountryCountDto>> GetServicesByCountry()
-        {
             var services = await _context.Services.ToListAsync();
 
             var servicesByCountry = services
@@ -50,34 +45,7 @@ namespace Tekus.Persistence.Repositories
                 })
                 .ToList();
 
-            return servicesByCountry;
-        }
-
-        public async Task<DashboardSummaryDto> GetSummary()
-        {
-            var services = await _context.Services.ToListAsync();
             var providers = await _context.Providers.ToListAsync();
-
-            var servicesByCountry = services
-                .SelectMany(s => s.Countries)
-                .GroupBy(code => code)
-                .Select(g => new CountryCountDto
-                {
-                    Country = g.Key,
-                    Count = g.Count()
-                })
-                .ToList();
-
-            var providersByCountry = services
-                .SelectMany(s => s.Countries.Select(code => new { s.ProviderId, Country = code }))
-                .Distinct()
-                .GroupBy(x => x.Country)
-                .Select(g => new CountryCountDto
-                {
-                    Country = g.Key,
-                    Count = g.Select(x => x.ProviderId).Distinct().Count()
-                })
-                .ToList();
 
             return new DashboardSummaryDto
             {

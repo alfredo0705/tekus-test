@@ -12,6 +12,7 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { providerResolver } from './_resolvers/provider.resolver';
 import { serviceResolver } from './_resolvers/service.resolver';
+import { DashboardComponent } from './components/pages/dashboard/dashboard/dashboard.component';
 
 export const routes: Routes = [{
     path: '',
@@ -25,7 +26,8 @@ export const routes: Routes = [{
       { path: 'providers/edit/:id', component: ProviderEditComponent, resolve: { provider: providerResolver }},
       { path: 'services', component: ServiceListComponent},
       { path: 'services/create', component: ServiceCreateComponent},
-      { path: 'services/edit/:id', component: ServiceEditComponent, resolve: {service: serviceResolver }}
+      { path: 'services/edit/:id', component: ServiceEditComponent, resolve: {service: serviceResolver }},
+      { path: 'summary', component: DashboardComponent}
     ]
   },
 {

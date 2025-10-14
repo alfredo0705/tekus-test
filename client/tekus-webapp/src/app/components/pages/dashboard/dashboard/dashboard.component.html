@@ -1,0 +1,53 @@
+<div class="dashboard-container">
+  <h1 class="dashboard-title">Dashboard</h1>
+
+  <div class="dashboard-grid">
+    <!-- Clientes por país -->
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <div mat-card-avatar class="card-icon bg-blue">
+          <mat-icon>group</mat-icon>
+        </div>
+        <mat-card-title>Clientes por país</mat-card-title>
+        <mat-card-subtitle>Resumen de proveedores registrados</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-list *ngIf="summary?.providersByCountry?.length; else noProviders">
+          <mat-list-item *ngFor="let item of summary.providersByCountry">
+            <span class="country">{{ item.country }}</span>
+            <span class="count">{{ item.count }}</span>
+          </mat-list-item>
+        </mat-list>
+
+        <ng-template #noProviders>
+          <p class="empty-text">No hay datos disponibles</p>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Servicios por país -->
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <div mat-card-avatar class="card-icon bg-green">
+          <mat-icon>build_circle</mat-icon>
+        </div>
+        <mat-card-title>Servicios por país</mat-card-title>
+        <mat-card-subtitle>Distribución de servicios activos</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-list *ngIf="summary?.servicesByCountry?.length; else noServices">
+          <mat-list-item *ngFor="let item of summary.servicesByCountry">
+            <span class="country">{{ item.country }}</span>
+            <span class="count">{{ item.count }}</span>
+          </mat-list-item>
+        </mat-list>
+
+        <ng-template #noServices>
+          <p class="empty-text">No hay datos disponibles</p>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

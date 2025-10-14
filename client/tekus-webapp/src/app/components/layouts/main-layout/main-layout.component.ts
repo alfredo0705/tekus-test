@@ -38,14 +38,6 @@ export class MainLayoutComponent implements OnInit {
       { text: 'Proveedores', path: 'providers' },
       { text: 'Servicios', path: 'services' },
     ]
-  },
-  {
-    text: 'Reportes',
-    items: [
-      { text: 'Total de servicios y proveedores', path: '/' },
-      { text: 'Servicios por pais', path: '/' },
-      { text: 'Proveedores por pais', path: '/' }
-    ]
   }
 ];
 
