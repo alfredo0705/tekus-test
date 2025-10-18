@@ -22,5 +22,6 @@
 
         public void UpdateName(string newName) => Name = newName;
         public void UpdateRate(decimal newRate) => HourlyRate = newRate;
+        public void UpdateCountries(List<string> newCountries) => Countries = newCountries;
     }
 }

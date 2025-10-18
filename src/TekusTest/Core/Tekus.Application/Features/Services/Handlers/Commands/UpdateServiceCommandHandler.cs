@@ -44,6 +44,7 @@ namespace Tekus.Application.Features.Services.Handlers.Commands
 
                 serviceToUpdate.UpdateName(newName: request.Service.Name);
                 serviceToUpdate.UpdateRate(newRate: request.Service.HourlyRate);
+                serviceToUpdate.UpdateCountries(newCountries: request.Service.Countries); 
 
                 await _unitOfWork.ServiceRepository.UpdateAsync(serviceToUpdate);
                 await _unitOfWork.SaveAsync();
