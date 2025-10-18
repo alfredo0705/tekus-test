@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Service } from '../../../../_models/service';
 import { Params } from '../../../../_models/params';
 import { Pagination } from '../../../../_models/pagination';
@@ -34,7 +34,7 @@ import { MatChipsModule } from '@angular/material/chips';
   templateUrl: './service-list.component.html',
   styleUrl: './service-list.component.scss'
 })
-export class ServiceListComponent implements OnInit {
+export class ServiceListComponent implements OnInit, AfterViewInit {
   services: Service[];
   params: Params = new Params();
   pagination!: Pagination;
@@ -62,15 +62,30 @@ export class ServiceListComponent implements OnInit {
         this.services = response.result;
 
         this.dataSource.data = response.result;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        
+        if (this.paginator) {
+          this.paginator.length = this.pagination.totalItems;
+          this.paginator.pageIndex = this.pagination.currentPage - 1;
+          this.paginator.pageSize = this.pagination.itemsPerPage;
+        }
       }
     })
   }
 
+  ngAfterViewInit() {
+  this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
+}
+
   onPageChanged(event: PageEvent){
-    this.pagination.currentPage = event.pageIndex;
-    this.pagination.itemsPerPage = event.pageSize;
+    if (event.pageSize !== this.params.pageSize) {
+      this.params.pageNumber = 1;
+      this.paginator.pageIndex = 0;
+    } else {
+      this.params.pageNumber = event.pageIndex + 1;
+    }
+
+    this.params.pageSize = event.pageSize;
     this.serviceService.setParams(this.params);
     this.loadServices();
   }

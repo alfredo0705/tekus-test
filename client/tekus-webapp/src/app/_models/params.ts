@@ -1,5 +1,5 @@
 export class Params{
     pageNumber = 1;
-    pageSize = 12;
+    pageSize = 5;
     searchCriteria = '';
 }
